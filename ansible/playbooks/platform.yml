@@ -1,0 +1,10 @@
+---
+- name: Install Platform Services
+  hosts: company_servers
+  become: true
+  gather_facts: true
+
+  roles:
+    - docker
+    - traefik
+    - postgres

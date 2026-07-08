@@ -1,0 +1,8 @@
+---
+- name: Install system package groups
+  ansible.builtin.apt:
+    name: "{{ item.value }}"
+    state: present
+  loop: "{{ common_packages | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"

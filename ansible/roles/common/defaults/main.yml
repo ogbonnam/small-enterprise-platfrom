@@ -1,2 +1,29 @@
 ---
-# defaults file for common
+common_system:
+  timezone: UTC
+
+common_packages:
+  base:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg
+    - lsb-release
+    - software-properties-common
+  security:
+    - fail2ban
+    - ufw
+  utilities:
+    - bash-completion
+    - git
+    - htop
+    - jq
+    - rsync
+    - tree
+    - unzip
+    - vim
+    - wget
+    - zip
+  python:
+    - python3
+    - python3-pip

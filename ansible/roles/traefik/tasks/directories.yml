@@ -1,0 +1,13 @@
+---
+- name: Create Traefik directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ global_platform.user }}"
+    group: "{{ global_platform.group }}"
+    mode: "0755"
+  loop:
+    - "{{ traefik_settings.directories.base }}"
+    - "{{ traefik_settings.directories.config }}"
+    - "{{ traefik_settings.directories.data }}"
+    - "{{ traefik_settings.directories.logs }}"

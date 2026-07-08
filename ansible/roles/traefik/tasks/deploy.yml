@@ -1,0 +1,19 @@
+---
+- name: Deploy Traefik reverse proxy core runtime container
+  community.docker.docker_container:
+    name: "{{ traefik_settings.container_name }}"
+    image: "{{ global_image_catalog.traefik }}"
+    restart_policy: unless-stopped
+    state: started
+    recreate: false
+    networks:
+      - name: "{{ traefik_settings.network }}"
+    published_ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - "{{ traefik_settings.directories.config }}/traefik.yml:/traefik.yml:ro"
+      - "{{ traefik_settings.directories.data }}:/data"
+    comparisons:
+      '*': strict

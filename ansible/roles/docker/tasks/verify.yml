@@ -1,0 +1,19 @@
+---
+- name: Verify Docker Engine CLI functionality execution
+  ansible.builtin.command:
+    cmd: docker --version
+  register: docker_version_output
+  changed_when: false
+
+- name: Verify Docker daemon operational availability
+  community.docker.docker_container_info:
+    name: non_existent_validation_container
+  register: docker_info_output
+  ignore_errors: true
+
+- name: Assert Docker engine status is functional
+  ansible.builtin.assert:
+    that:
+      - docker_version_output.rc == 0
+    success_msg: "Docker Engine installation verified successfully."
+    fail_msg: "Docker Engine installation is broken or unresponsive."

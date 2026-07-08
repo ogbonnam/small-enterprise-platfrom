@@ -1,0 +1,20 @@
+---
+- name: Run verification assertions on required parameters
+  ansible.builtin.import_tasks: validate.yml
+  tags: [postgres, validate]
+
+- name: Instantiate multi-tenant standard directory tree tracks
+  ansible.builtin.import_tasks: directories.yml
+  tags: [postgres, directories]
+
+- name: Render environment execution profiles
+  ansible.builtin.import_tasks: configuration.yml
+  tags: [postgres, config]
+
+- name: Execute platform container tasks
+  ansible.builtin.import_tasks: deploy.yml
+  tags: [postgres, deploy]
+
+- name: Run external database engine socket readiness assertions
+  ansible.builtin.import_tasks: verify.yml
+  tags: [postgres, verify]

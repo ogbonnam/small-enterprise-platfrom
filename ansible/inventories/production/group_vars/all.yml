@@ -1,0 +1,23 @@
+---
+# Global architecture standards accessed by all roles
+global_platform:
+  user: platformops
+  group: platformops
+  home: /home/platformops
+  data_root: /opt/platformops
+
+# Centralized immutable infrastructure image tag catalog (Strictly Pinned)
+global_image_catalog:
+  traefik: "traefik:v3.5.3"
+  postgres: "postgres:17.6"
+  redis: "redis:8.2.1"
+  mattermost: "mattermost/mattermost-team-edition:10.12.0"
+
+# Unified container engine enforcement matrices
+global_docker_defaults:
+  restart_policy: unless-stopped
+  logging:
+    driver: json-file
+    options:
+      max-size: "10m"
+      max-file: "5"

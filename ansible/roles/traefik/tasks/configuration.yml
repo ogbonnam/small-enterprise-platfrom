@@ -1,0 +1,19 @@
+---
+- name: Deploy Traefik reverse proxy configuration engine template
+  ansible.builtin.template:
+    src: traefik.yml.j2
+    dest: "{{ traefik_settings.directories.config }}/traefik.yml"
+    owner: "{{ global_platform.user }}"
+    group: "{{ global_platform.group }}"
+    mode: "0644"
+  notify: Restart Traefik reverse proxy container
+
+- name: Create ACME secure SSL storage credentials file
+  ansible.builtin.file:
+    path: "{{ traefik_settings.directories.data }}/acme.json"
+    state: touch
+    owner: "{{ global_platform.user }}"
+    group: "{{ global_platform.group }}"
+    mode: "0600"
+    modification_time: preserve
+    access_time: preserve

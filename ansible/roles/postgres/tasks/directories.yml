@@ -1,0 +1,12 @@
+---
+- name: Create standard directory tree layout for tenant database service
+  ansible.builtin.file:
+    path: "{{ global_platform.data_root }}/{{ company.short_name | default('platformops') }}/postgres/{{ item }}"
+    state: directory
+    owner: "{{ global_platform.user }}"
+    group: "{{ global_platform.group }}"
+    mode: "0755"
+  loop:
+    - config
+    - data
+    - logs

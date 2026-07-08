@@ -1,0 +1,5 @@
+---
+- name: Test security role profile configuration
+  hosts: localhost
+  roles:
+    - security

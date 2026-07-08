@@ -1,0 +1,8 @@
+---
+- name: Bootstrap Ubuntu Server
+  hosts: company_servers
+  become: true
+  gather_facts: true
+
+  roles:
+    - common

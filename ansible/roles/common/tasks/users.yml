@@ -1,0 +1,32 @@
+---
+- name: Ensure platform group exists
+  ansible.builtin.group:
+    name: "{{ global_platform.group }}"
+    state: present
+
+- name: Ensure platform user exists
+  ansible.builtin.user:
+    name: "{{ global_platform.user }}"
+    group: "{{ global_platform.group }}"
+    groups: sudo
+    append: true
+    shell: /bin/bash
+    create_home: true
+    home: "{{ global_platform.home }}"
+    state: present
+
+- name: Configure passwordless sudo
+  ansible.builtin.copy:
+    dest: "/etc/sudoers.d/{{ global_platform.user }}"
+    content: "{{ global_platform.user }} ALL=(ALL) NOPASSWD:ALL\n"
+    owner: root
+    group: root
+    mode: "0440"
+
+- name: Create .ssh directory
+  ansible.builtin.file:
+    path: "{{ global_platform.home }}/.ssh"
+    state: directory
+    owner: "{{ global_platform.user }}"
+    group: "{{ global_platform.group }}"
+    mode: "0700"

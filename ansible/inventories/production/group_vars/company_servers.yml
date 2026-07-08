@@ -1,0 +1,17 @@
+---
+# Tenant Identifier Context
+company:
+  short_name: acme
+
+# Tenant Application Catalog Matrix
+github:
+  owner: georgeenueshike
+
+customer_apps:
+  nextjs:
+    repository: website
+    tag: v1.0.0
+
+# Secrets Layer (Will become Ansible Vaulted)
+postgres_secrets:
+  password: "password"

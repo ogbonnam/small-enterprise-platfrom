@@ -1,0 +1,12 @@
+---
+- name: Import ssh tasks
+  ansible.builtin.import_tasks: ssh.yml
+
+- name: Import firewall tasks
+  ansible.builtin.import_tasks: firewall.yml
+
+- name: Import fail2ban tasks
+  ansible.builtin.import_tasks: fail2ban.yml
+
+- name: Import sysctl tasks
+  ansible.builtin.import_tasks: sysctl.yml

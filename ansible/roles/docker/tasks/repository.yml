@@ -1,0 +1,34 @@
+---
+- name: Verify targeted operating system is supported Ubuntu distribution
+  ansible.builtin.assert:
+    that:
+      - ansible_facts['distribution']  == "Ubuntu"
+      - ansible_facts['distribution_release'] is defined
+    fail_msg: "This role strictly supports Ubuntu target nodes."
+    success_msg: "Operating system verification successful."
+
+- name: Create Docker keyring directory
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+
+- name: Download Docker GPG key
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    mode: "0644"
+
+- name: Add Docker repository dynamically using distribution features
+  ansible.builtin.apt_repository:
+    repo: >-
+      deb [arch={{ docker_settings.architecture }}
+      signed-by=/etc/apt/keyrings/docker.asc]
+      https://download.docker.com/linux/ubuntu
+      {{ ansible_facts['distribution_release'] }}
+      {{ docker_settings.channel }}
+    state: present
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true

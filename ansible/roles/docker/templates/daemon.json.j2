@@ -1,0 +1,7 @@
+{
+  "log-driver": "{{ docker_settings.daemon.log_driver }}",
+  "log-opts": {
+    "max-size": "{{ docker_settings.daemon.max_size }}",
+    "max-file": "{{ docker_settings.daemon.max_file }}"
+  }
+}

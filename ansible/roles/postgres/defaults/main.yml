@@ -1,0 +1,13 @@
+---
+postgres_settings:
+  database: app
+  username: app
+  restart_policy: unless-stopped
+  resources:
+    memory: "1g"
+    cpus: 1.0
+
+  healthcheck:
+    interval: 10s
+    timeout: 5s
+    retries: 5

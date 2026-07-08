@@ -1,2 +1,12 @@
 ---
-# tasks file for common
+- name: Handle system updates and reboots
+  ansible.builtin.import_tasks: updates.yml
+
+- name: Install grouped system packages
+  ansible.builtin.import_tasks: packages.yml
+
+- name: Configure system regional settings
+  ansible.builtin.import_tasks: timezone.yml
+
+- name: Provision system users and permissions
+  ansible.builtin.import_tasks: users.yml

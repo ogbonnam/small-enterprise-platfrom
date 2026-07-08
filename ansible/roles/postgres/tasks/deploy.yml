@@ -1,0 +1,19 @@
+---
+- name: Deploy isolated PostgreSQL storage data service container
+  community.docker.docker_container:
+    name: "{{ company.short_name | default('platformops') }}-postgres"
+    image: "{{ global_image_catalog.postgres }}"
+    restart_policy: "{{ global_docker_defaults.restart_policy }}"
+    state: started
+    recreate: false
+    networks:
+      - name: "{{ company.short_name | default('platformops') }}-network"
+    env_file: "{{ global_platform.data_root }}/{{ company.short_name | default('platformops') }}/postgres/.env"
+    volumes:
+      - "{{ global_platform.data_root }}/{{ company.short_name | default('platformops') }}/postgres/data:/var/lib/postgresql/data"
+    memory: "{{ postgres_settings.resources.memory }}"
+    cpus: "{{ postgres_settings.resources.cpus }}"
+    log_driver: "{{ global_docker_defaults.logging.driver }}"
+    log_options: "{{ global_docker_defaults.logging.options }}"
+    comparisons:
+      '*': strict

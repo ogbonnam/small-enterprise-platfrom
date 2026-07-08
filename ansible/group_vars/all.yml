@@ -1,0 +1,4 @@
+global_platform:
+  user: platformops
+  group: platformops
+  home: /home/platformops

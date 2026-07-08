@@ -1,0 +1,20 @@
+---
+- name: Execute pre-flight parameter validation checks
+  ansible.builtin.import_tasks: validate.yml
+  tags: [traefik, validate]
+
+- name: Ensure Traefik file engine structures exist
+  ansible.builtin.import_tasks: directories.yml
+  tags: [traefik, directories]
+
+- name: Render static system files and certificate store
+  ansible.builtin.import_tasks: configuration.yml
+  tags: [traefik, configuration]
+
+- name: Deploy declarative runtime container instance
+  ansible.builtin.import_tasks: deploy.yml
+  tags: [traefik, deploy]
+
+- name: Perform automated service verification
+  ansible.builtin.import_tasks: verify.yml
+  tags: [traefik, verify]

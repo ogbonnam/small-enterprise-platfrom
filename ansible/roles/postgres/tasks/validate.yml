@@ -1,0 +1,8 @@
+---
+- name: Validate that database runtime password is secure and populated
+  ansible.builtin.assert:
+    that:
+      - postgres_secrets.password is defined
+      - postgres_secrets.password | length > 6
+    fail_msg: "FATAL ERROR: The postgres_secrets.password is empty or dangerously short."
+    success_msg: "PostgreSQL security profiles validated."

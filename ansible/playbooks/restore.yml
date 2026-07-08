@@ -1,0 +1,5 @@
+---
+- name: Placeholder Playbook
+  hosts: localhost
+  gather_facts: false
+  tasks: []

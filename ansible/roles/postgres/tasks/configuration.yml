@@ -1,0 +1,8 @@
+---
+- name: Deploy persistent environment runtime profile configuration file
+  ansible.builtin.template:
+    src: env.j2
+    dest: "{{ global_platform.data_root }}/{{ company.short_name | default('platformops') }}/postgres/.env"
+    owner: "{{ global_platform.user }}"
+    group: "{{ global_platform.group }}"
+    mode: "0600"

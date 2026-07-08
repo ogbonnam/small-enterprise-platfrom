@@ -1,0 +1,8 @@
+---
+- name: Validate Traefik role configuration requirements
+  ansible.builtin.assert:
+    that:
+      - traefik_settings.letsencrypt.email is defined
+      - traefik_settings.letsencrypt.email | length > 5
+    fail_msg: "FATAL ERROR: Traefik Let's Encrypt administrative email is empty or invalid."
+    success_msg: "Traefik role deployment requirements validated successfully."

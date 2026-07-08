@@ -1,0 +1,26 @@
+---
+- name: Gather PostgreSQL container deployment state details
+  community.docker.docker_container_info:
+    name: "{{ company.short_name | default('platformops') }}-postgres"
+  register: postgres_container
+  check_mode: false
+
+- name: Enforce container active engine verification
+  ansible.builtin.assert:
+    that:
+      - postgres_container.exists
+      - postgres_container.container.State.Running
+    fail_msg: "PostgreSQL storage core container failed to spin up cleanly."
+    success_msg: "PostgreSQL engine container execution verified."
+  when: not ansible_check_mode
+
+- name: Wait for PostgreSQL engine port to accept incoming network socket connections
+  community.docker.docker_container_exec:
+    container: "{{ company.short_name | default('platformops') }}-postgres"
+    command: "pg_isready -U {{ postgres_settings.username }} -d {{ postgres_settings.database }}"
+  register: pg_ready
+  until: pg_ready.rc == 0
+  retries: 20
+  delay: 3
+  changed_when: false
+  when: not ansible_check_mode

@@ -1,0 +1,23 @@
+api:
+  dashboard: {{ traefik_settings.dashboard | lower }}
+
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+
+providers:
+  docker:
+    exposedByDefault: false
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: "{{ traefik_settings.letsencrypt.email }}"
+      storage: /data/acme.json
+      httpChallenge:
+        entryPoint: web
+
+log:
+  level: INFO

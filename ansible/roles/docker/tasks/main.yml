@@ -1,0 +1,30 @@
+---
+- name: Setup official Docker repository
+  ansible.builtin.import_tasks: repository.yml
+  tags:
+    - docker
+    - docker-repo
+
+- name: Install Docker Engine packages
+  ansible.builtin.import_tasks: install.yml
+  tags:
+    - docker
+    - docker-install
+
+- name: Configure Docker daemon
+  ansible.builtin.import_tasks: daemon.yml
+  tags:
+    - docker
+    - docker-daemon
+
+- name: Initialize platform network layer
+  ansible.builtin.import_tasks: network.yml
+  tags:
+    - docker
+    - docker-network
+
+- name: Perform automated health verification
+  ansible.builtin.import_tasks: verify.yml
+  tags:
+    - docker
+    - docker-verify

@@ -1,0 +1,6 @@
+---
+- name: Create tenant specific shared Docker network bridge
+  community.docker.docker_network:
+    name: "{{ company.short_name | default('platformops') }}-network"
+    driver: "{{ docker_settings.network.driver }}"
+    state: present

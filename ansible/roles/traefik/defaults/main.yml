@@ -1,0 +1,12 @@
+---
+traefik_settings:
+  container_name: traefik
+  dashboard: true
+  network: platform-network
+  letsencrypt:
+    email: georgeenueshike@gmail.com
+  directories:
+    base: /opt/platformops/traefik
+    config: /opt/platformops/traefik/config
+    data: /opt/platformops/traefik/data
+    logs: /opt/platformops/traefik/logs

@@ -1,0 +1,7 @@
+---
+- name: Restart Traefik reverse proxy container
+  community.docker.docker_container:
+    name: "{{ traefik_settings.container_name }}"
+    image: "{{ global_image_catalog.traefik }}"
+    state: started
+    restart: true
